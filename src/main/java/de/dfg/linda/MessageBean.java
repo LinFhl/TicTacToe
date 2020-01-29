@@ -15,6 +15,6 @@ public class MessageBean {
      * @return a message
      */
     public String getMessage() {
-        return new StringBuilder("Message requested ").append(++counter).append(" times.").toString();
+        return new StringBuilder("Message requested ").append(counter++).append(" times.").toString();
     }
 }

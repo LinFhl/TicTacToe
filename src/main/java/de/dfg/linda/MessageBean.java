@@ -1,6 +1,7 @@
 package de.dfg.linda;
 
 import com.vaadin.cdi.annotation.VaadinSessionScoped;
+import com.vaadin.flow.component.button.Button;
 
 /**
  * Data provider bean scoped for each user session.
@@ -8,13 +9,16 @@ import com.vaadin.cdi.annotation.VaadinSessionScoped;
 @VaadinSessionScoped
 public class MessageBean {
 
-    private int counter;
+	 Button button1;
     /**
      * Gets message data.
      *
      * @return a message
      */
     public String getMessage() {
-        return new StringBuilder("Message requested ").append(counter++).append(" times.").toString();
+       
+		return new StringBuilder(button1.getText() + "" + "hat gewonnen").toString();
     }
+
+    
 }

@@ -21,11 +21,11 @@ public class TicTacToeSpiel  extends VerticalLayout{
 	private static final long serialVersionUID = 1L;
 
 	@Inject 
-    private MessageBean messageBean;
+   private MessageBean messageBean;
     
     private String currentPlayer = "X";
     
-    String ergebnis = "Unentschieden";
+   // String ergebnis = "Unentschieden";
     		
     HorizontalLayout reihe1;
 	HorizontalLayout reihe2;
@@ -50,50 +50,32 @@ public class TicTacToeSpiel  extends VerticalLayout{
     		
     	}
 		
-		if (!obenLinks.getText().isEmpty() && obenLinks.getText().equals(obenMitte.getText()) && obenLinks.getText().equals(obenRechts.getText())){
-			System.out.print(obenLinks.getText() +" " + "hat gewonnen");
-		}
-    	
-		if (!mitteLinks.getText().isEmpty() && mitteLinks.getText().equals(mitteMitte.getText()) && mitteLinks.getText().equals(mitteRechts.getText())){
-			System.out.print(mitteLinks.getText() +" " + "hat gewonnen");
-		}
-    	
-		if (!untenLinks.getText().isEmpty() && untenLinks.getText().equals(untenMitte.getText()) && untenLinks.getText().equals(untenRechts.getText())){
-			System.out.print(untenLinks.getText() +" " + "hat gewonnen");
-		}
-		
-		if (!obenLinks.getText().isEmpty() && obenLinks.getText().equals(mitteLinks.getText()) && obenLinks.getText().equals(untenLinks.getText())){
-			System.out.print(obenLinks.getText() +" " + "hat gewonnen");
-		}
-    	
-		if (!obenMitte.getText().isEmpty() && obenMitte.getText().equals(mitteMitte.getText()) && obenMitte.getText().equals(untenMitte.getText())){
-			System.out.print(obenMitte.getText() +" " + "hat gewonnen");
-		}
-    	
-		if (!obenLinks.getText().isEmpty() && obenLinks.getText().equals(mitteRechts.getText()) && obenLinks.getText().equals(untenRechts.getText())){
-			System.out.print(untenLinks.getText() +" " + "hat gewonnen");
-		}
-		
-		if (!obenLinks.getText().isEmpty()/*.equals("")*/ && obenLinks.getText().equals(mitteMitte.getText()) && obenLinks.getText().equals(untenRechts.getText())){
-			System.out.print(obenLinks.getText() +" " + "hat gewonnen");
-		}
-		
-		if (!obenRechts.getText().isEmpty() && obenRechts.getText().equals(mitteMitte.getText()) && obenRechts.getText().equals(untenLinks.getText())){
-			System.out.print(obenRechts.getText() +" " + "hat gewonnen");
-		}
-    	
-		
+		compareButtons(obenLinks,obenMitte,obenRechts);
+		compareButtons(mitteLinks,mitteMitte,mitteRechts);
+		compareButtons(untenLinks,untenMitte,untenRechts);
+		compareButtons(obenLinks,mitteLinks,untenLinks);
+		compareButtons(obenMitte,mitteMitte,untenMitte);
+		compareButtons(obenRechts,mitteRechts,untenRechts);
+		compareButtons(obenLinks,mitteMitte,untenRechts);
+		compareButtons(obenRechts,mitteMitte,untenLinks);
 		
 	}
 	
-	public static Button compareButtons(Button obenLinks,Button obenMitte, Button obenRechts, Button mitteLinks, Button mitteMitte, Button mitteRechts, Button untenLinks, Button untenMitte, Button untenRechts) {
+	public static void compareButtons(Button button1,Button button2, Button button3) {
 		
+			
+			
+			if(!button1.getText().isEmpty() && button1.getText().equals(button2.getText()) && button1.getText().equals(button3.getText())) {
+			
+				System.out.print(button1.getText() +" " + "hat gewonnen");
+			
+				
+		 }
 		
-		return compareButtons(null, null, null, null, null, null, null, null, null);
-	}
-    
-	
-    @PostConstruct
+			
+		}
+	 
+	@PostConstruct
     public void init() {
     	
     	reihe1= new HorizontalLayout();

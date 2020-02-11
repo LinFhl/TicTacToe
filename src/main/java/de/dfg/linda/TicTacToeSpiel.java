@@ -15,6 +15,11 @@ import javax.annotation.PostConstruct;
  * The main view contains a simple label element and a template element.
  */
 
+//gibt unentschieden an falscher stelle aus 
+//rausfinden wie man den container an den anderen container von der größe her anpasst
+//Überprüfung wie viele buttons gedrückt wurden und dann prüfen ob es unentschieden ist/
+//oder Überprüfen ob alle buttons gedrückt wurden und dann unentschieden ausgebn wenn NICHT die anderen bediungen erfüllt sind(jemand gewommen hat)
+
 @Route("")
 @PWA(name = "Project Base for Vaadin Flow with CDI", shortName = "Project Base")
 public class TicTacToeSpiel  extends VerticalLayout{
@@ -24,30 +29,30 @@ public class TicTacToeSpiel  extends VerticalLayout{
 
     private String currentPlayer = "X";
     
-    HorizontalLayout reihe1;
-	HorizontalLayout reihe2;
-	HorizontalLayout reihe3;
-	HorizontalLayout reihe4;
+    HorizontalLayout reihe1,reihe2,reihe3,reihe4;
 	
-	Label label1 = new Label("Tic Tac Toe");
+	Label label1 = new Label("TicTacToe");
 	Label label = new Label("Viel Spaß beim spielen");
 	Label label2 = new Label("Der aktuelle Spieler ist: ");
 	Label label3 = new Label("");
 	 
-	private Button obenLinks, obenMitte, obenRechts, mitteLinks, mitteMitte, mitteRechts, untenLinks, untenMitte, untenRechts;
-	private Button clear;
-	
+	private Button obenLinks, obenMitte, obenRechts, mitteLinks, mitteMitte, mitteRechts, untenLinks, untenMitte, untenRechts, clear;
+
 	
 	@PostConstruct
     public void init() {
     	
+		getStyle()
+				.set("width", "18.2%")
+				.set("margin", "auto");
+		
     	reihe1= new HorizontalLayout();
     	reihe2= new HorizontalLayout();
     	reihe3= new HorizontalLayout();
     	reihe4= new HorizontalLayout();
     	
     	this.add(label1);  
-    	this.add(label);  					//.setFontSize(50) 
+    	this.add(label);  					
     	this.add(reihe1); 
 		this.add(reihe2);
 		this.add(reihe3);
@@ -55,15 +60,17 @@ public class TicTacToeSpiel  extends VerticalLayout{
 		this.add(label3);
 		this.add(reihe4);
 		
-		//label1.getStyle().set(font-weight, bold);
+		label1.getStyle()
+						.set("font-weight", "bold")
+						.set("font-size", "large");
 		
 	
 		
 		clear = new Button("Neues Spiel");
         clear.addClickListener(this::clearButtons);
         reihe4.add(clear);
-        
-		obenLinks = new Button("");
+     
+        obenLinks = new Button("");
         obenLinks.addClickListener(this::onClick);
         reihe1.add(obenLinks);
      
@@ -98,7 +105,7 @@ public class TicTacToeSpiel  extends VerticalLayout{
         untenRechts = new Button("");
         untenRechts.addClickListener(this::onClick);
         reihe3.add(untenRechts); 
-        
+         
     } 
 	
 	
@@ -107,7 +114,7 @@ public class TicTacToeSpiel  extends VerticalLayout{
     	
 		
     	event.getSource().setText(currentPlayer);
-    	
+    
 		
 		if (currentPlayer.equals("X")) {
     		
@@ -129,6 +136,15 @@ public class TicTacToeSpiel  extends VerticalLayout{
 		compareButtons(obenLinks,mitteMitte,untenRechts);
 		compareButtons(obenRechts,mitteMitte,untenLinks);
 		
+		/*uButtons(obenLinks,obenMitte,obenRechts);
+		uButtons(mitteLinks,mitteMitte,mitteRechts);
+		uButtons(untenLinks,untenMitte,untenRechts);
+		uButtons(obenLinks,mitteLinks,untenLinks);
+		uButtons(obenMitte,mitteMitte,untenMitte);
+		uButtons(obenRechts,mitteRechts,untenRechts);
+		uButtons(obenLinks,mitteMitte,untenRechts);
+		uButtons(obenRechts,mitteMitte,untenLinks);
+		*/
 	}
 	
 	public void compareButtons(Button button1,Button button2, Button button3) {
@@ -136,10 +152,26 @@ public class TicTacToeSpiel  extends VerticalLayout{
 			if(!button1.getText().isEmpty() && button1.getText().equals(button2.getText()) && button1.getText().equals(button3.getText())) {
 			
 				label2.setText(button1.getText() +" " + "hat gewonnen");
-				
+				label2.getStyle().set("color", "red");
+				label2.getStyle().set("font-weight", "bold");
 			}
-		
+			
+				
+				
 	}
+	
+	/*public void uButtons(Button button1,Button button2, Button button3) {
+		
+		if(!button1.getText().isEmpty() && !button1.getText().equals(button2.getText()) && !button1.getText().equals(button3.getText())) {
+		
+			label2.setText("Unentschieden");
+			label2.getStyle().set("color", "red");
+			label2.getStyle().set("font-weight", "bold");
+		}
+		
+	} 
+	*/
+	
 	
 	public void clearButtons(ClickEvent<Button> event) {
 		
@@ -155,10 +187,15 @@ public class TicTacToeSpiel  extends VerticalLayout{
 		untenRechts.setText("");
 		
 		label2.setText("Der aktuelle Spieler ist: ");
-	
+		label2.getStyle().set("color", "black");
+		label2.getStyle().set("font-weight", "normal");
 		
 	}
 	
+	public void buttonsGedrückt() {
+		
+		
+	}
 	 
 
 }
